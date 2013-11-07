@@ -1,3 +1,5 @@
+test_settings.rb
+
 *.gem
 *.rbc
 .bundle

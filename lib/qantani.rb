@@ -35,7 +35,7 @@ module Qantani
   def self.banks
     request = Request.new action: "IDEAL.GETBANKS"
 
-    request.response['Banks']['Bank'].map { |b| { b['Id'] => b['Name'] } }
+    request.response['Banks']['Bank'].map { |b| Bank.new(b['Id'], b['Name']) }
   end
 
   def self.execute(amount: nil, bank_id: nil, description: nil, return_url: nil)
