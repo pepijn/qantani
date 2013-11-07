@@ -11,13 +11,16 @@ module Qantani
         send key.to_s + '=', value
       end
 
-      body = { data: request_data.to_xml(root: 'Transaction') }
-      request = HTTParty.post API_ENDPOINT, body: body, format: :xml
+      request = HTTParty.post API_ENDPOINT, body: { data: xml }, format: :xml
       @response = request.parsed_response['Response']
     end
 
     def parameters
       @parameters || {}
+    end
+
+    def xml
+      request_data.to_xml root: 'Transaction'
     end
 
     def request_data

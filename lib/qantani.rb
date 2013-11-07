@@ -3,6 +3,7 @@ require 'builder'
 require 'active_support/core_ext/hash'
 
 require 'qantani/request'
+require 'qantani/bank'
 
 module Qantani
   API_ENDPOINT = 'https://www.qantanipayments.com/api/'
@@ -41,7 +42,7 @@ module Qantani
   def self.execute(amount: nil, bank_id: nil, description: nil, return_url: nil)
     Request.new action: "IDEAL.EXECUTE",
       parameters: {
-        Amount: amount,
+        Amount: amount.to_s,
         Bank: bank_id,
         Currency: DEFAULT_CURRENCY,
         Description: description,

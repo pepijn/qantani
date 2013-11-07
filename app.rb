@@ -21,7 +21,7 @@ get '/:amount' do
     amount: params[:amount],
     bank_id: 'ING',
     return_url: 'http://localhost:9393/check',
-    description: 'Testje'
+    description: 'Testbetaling 123'
   )
 
   session[:transaction_code] = payment.transaction_code
