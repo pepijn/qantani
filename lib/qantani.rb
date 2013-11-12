@@ -2,6 +2,7 @@ require 'httparty'
 require 'builder'
 require 'active_support/core_ext/hash'
 
+require 'qantani/response'
 require 'qantani/request'
 require 'qantani/bank'
 
@@ -36,7 +37,7 @@ module Qantani
   def self.banks
     request = Request.new action: "IDEAL.GETBANKS"
 
-    request.response['Banks']['Bank'].map { |b| Bank.new(b['Id'], b['Name']) }
+    request.response.banks.map { |b| Bank.new(b['Id'], b['Name']) }
   end
 
   def self.execute(amount: nil, bank_id: nil, description: nil, return_url: nil)

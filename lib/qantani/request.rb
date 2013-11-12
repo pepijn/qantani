@@ -12,7 +12,7 @@ module Qantani
       end
 
       request = HTTParty.post API_ENDPOINT, body: { data: xml }, format: :xml
-      @response = request.parsed_response['Response']
+      @response = Response.new request.parsed_response['Response']
     end
 
     def parameters
@@ -36,18 +36,6 @@ module Qantani
           Checksum: checksum
         }
       }
-    end
-
-    def transaction_id
-      response['Response']['TransactionID']
-    end
-
-    def transaction_code
-      response['Response']['Code']
-    end
-
-    def bank_url
-      response['Response']['BankURL']
     end
 
     def checksum
