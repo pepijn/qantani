@@ -1,35 +1,35 @@
 module Qantani
   class Response
-    def initialize(data)
-      @data = data
+    def initialize(body)
+      @body = body
     end
 
     # Banks
     def banks
-      data['Banks']['Bank']
+      body['Banks']['Bank']
     end
 
     # Execute
     def transaction_id
-      data['Response']['TransactionID']
+      body['Response']['TransactionID']
     end
 
     def transaction_code
-      data['Response']['Code']
+      body['Response']['Code']
     end
 
     def bank_url
-      data['Response']['BankURL']
+      body['Response']['BankURL']
     end
 
     # Check
     def paid?
-      data["Transaction"]["Paid"] == "Y"
+      body["Transaction"]["Paid"] == "Y"
     end
 
     private
 
-    attr_reader :data
+    attr_reader :body
   end
 end
 

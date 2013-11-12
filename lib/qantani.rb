@@ -41,7 +41,7 @@ module Qantani
   end
 
   def self.execute(amount: nil, bank_id: nil, description: nil, return_url: nil)
-    Request.new action: "IDEAL.EXECUTE",
+    request = Request.new action: "IDEAL.EXECUTE",
       parameters: {
         Amount: amount.to_s,
         Bank: bank_id,
@@ -49,14 +49,16 @@ module Qantani
         Description: description,
         Return: return_url
       }
+    request.response
   end
 
   def self.check(transaction_id: nil, transaction_code: nil)
-    Request.new action: "TRANSACTIONSTATUS",
+    request = Request.new action: "TRANSACTIONSTATUS",
       parameters: {
         TransactionCode: transaction_code,
         TransactionID: transaction_id
       }
+    request.response
   end
 
   # The common base class for all exceptions raised by OmniKassa

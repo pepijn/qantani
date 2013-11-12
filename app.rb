@@ -4,17 +4,16 @@ require './test_settings'
 enable :sessions
 
 get '/' do
-  Qantani.banks.inspect
+  Qantani.banks.map { |b| { b.id => b.name } }.inspect
 end
 
 get '/check' do
-  request = Qantani.check(
+  check = Qantani.check(
     transaction_id: params[:id],
     transaction_code: session[:transaction_code]
   )
-  response = request.response
 
-  "#{response.inspect}<br><br>Paid: #{response.paid?}"
+  "#{check.inspect}<br><br>Paid: #{check.paid?}"
 end
 
 get '/:amount' do
@@ -24,9 +23,8 @@ get '/:amount' do
     return_url: 'http://localhost:9393/check',
     description: 'Testbetaling 123'
   )
-  response = payment.response
 
-  session[:transaction_code] = response.transaction_code
-  redirect response.bank_url
+  session[:transaction_code] = payment.transaction_code
+  redirect payment.bank_url
 end
 
